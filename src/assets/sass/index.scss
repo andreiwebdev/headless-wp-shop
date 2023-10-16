@@ -1,6 +1,12 @@
+// utils
+@import "./utils/variables";
+@import "./utils/helpers";
+
 // base
 @import "./base/reset";
 @import "./base/typography";
+@import "./base/buttons";
 
-// utils
-@import "./utils/variables";
+// layout
+@import "./layout/navbar";
+@import "./layout/forms";

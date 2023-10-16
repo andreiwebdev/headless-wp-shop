@@ -1,0 +1,19 @@
+.btn {
+    &--1 {
+        background-color: $col-light;
+        border: 2px solid $col-blue;
+        border-radius: 20px;
+        color: $col-blue !important;
+        font-weight: 600;
+        padding: 6px 24px;
+    }
+    &--2 {
+        background-color: $col-blue;
+        border: 2px solid $col-blue;
+        border-radius: 20px;
+        color: $col-light;
+        cursor: pointer;
+        font-weight: 600;
+        padding: 6px 24px;
+    }
+}
