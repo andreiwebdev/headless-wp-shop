@@ -18,7 +18,10 @@ const BlogPostsSection = () => {
         <div className="container blog-posts-section">
             <div className="row">
                 {posts.map((post, key) => (
-                    <div className="col-sm-6 col-md-4 col-lg-3 mb-4 md-md-3">
+                    <div
+                        key={key}
+                        className="col-sm-6 col-md-4 col-lg-3 mb-4 md-md-3"
+                    >
                         <div className="post-in-col">
                             <a href="#">
                                 <div
