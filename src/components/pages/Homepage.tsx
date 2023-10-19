@@ -1,3 +1,4 @@
+import BlogPostsSection from "../blog/BlogPostsSection";
 import BrandsBanner from "../common/BrandsBanner";
 import HeroSlider from "../common/HeroSlider";
 import ProductsSliderSection from "../products/ProductsSliderSection";
@@ -61,6 +62,7 @@ const Homepage = () => {
                 bannerImageURL="../src/assets/images/banners/banner-3.png"
             />
             <BrandsBanner />
+            <BlogPostsSection />
         </>
     );
 };

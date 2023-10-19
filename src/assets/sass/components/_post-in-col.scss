@@ -1,0 +1,27 @@
+.blog-posts-section {
+    margin-bottom: 34px;
+}
+
+.post-in-col {
+    .thumbnail {
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
+        width: 100%;
+        height: 100%;
+        min-height: 200px;
+        margin-bottom: 12px;
+    }
+    h3 {
+        color: $col-text;
+        font-weight: 600;
+        font-size: 16px;
+        margin-bottom: 3px;
+    }
+    a {
+        font-size: 14px;
+        color: $col-gray-3;
+        text-decoration: none;
+        font-weight: 400;
+    }
+}
