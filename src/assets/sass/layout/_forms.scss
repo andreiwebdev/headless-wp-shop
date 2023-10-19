@@ -26,3 +26,24 @@
         }
     }
 }
+
+.newsletter {
+    display: flex;
+    input {
+        width: 100%;
+        padding: 10px;
+        margin-right: 23px;
+        background: $col-dark;
+        border: 2px solid $col-light;
+        border-radius: 4px;
+        font-size: 14px;
+        color: $col-light;
+        &::placeholder {
+            font-size: 14px;
+            color: $col-gray;
+        }
+        &:focus {
+            outline: none;
+        }
+    }
+}
