@@ -1,3 +1,4 @@
+import BrandsBanner from "../common/BrandsBanner";
 import HeroSlider from "../common/HeroSlider";
 import ProductsSliderSection from "../products/ProductsSliderSection";
 import ProductsTabsSection from "../products/ProductsTabsSection";
@@ -59,6 +60,7 @@ const Homepage = () => {
                 bannerTitle="Gaming Monitors"
                 bannerImageURL="../src/assets/images/banners/banner-3.png"
             />
+            <BrandsBanner />
         </>
     );
 };
