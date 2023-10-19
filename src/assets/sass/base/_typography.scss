@@ -15,6 +15,13 @@ h1 {
     font-size: 28px;
 }
 
+a,
+a:hover,
+a:visited,
+a:link {
+    color: $col-blue;
+}
+
 @media screen and (min-width: $bp-md) {
     h1 {
         font-size: 32px;

@@ -7,6 +7,7 @@
             width: 100%;
             height: 200px;
             position: relative;
+            margin-bottom: 37px;
             .overlay {
                 position: fixed;
                 width: 100%;
@@ -38,12 +39,25 @@
     }
 }
 
+.slider-1 {
+    margin-bottom: 18px;
+    .swiper-wrapper {
+        padding-bottom: 30px;
+    }
+}
+
 @media screen and (min-width: $bp-md) {
     .hero-slider {
         &--1 {
             .swiper-slide {
                 height: 328px;
             }
+        }
+    }
+    .slider-1 {
+        margin-bottom: 34px;
+        .swiper-wrapper {
+            padding-bottom: 60px;
         }
     }
 }

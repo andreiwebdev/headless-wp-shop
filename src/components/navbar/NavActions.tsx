@@ -7,7 +7,7 @@ import { MdOutlineModeEdit } from "react-icons/md";
 import { BiSearch } from "react-icons/bi";
 
 // images
-import ProductImage from "../../assets/images/product-1.png";
+import ProductImage from "../../assets/images/products/product-1.png";
 
 const NavActions = () => {
     const [isCartOpen, setIsCartOpen] = useState(false);

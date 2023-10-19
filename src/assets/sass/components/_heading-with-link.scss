@@ -1,0 +1,10 @@
+.heading-with-link {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 14px;
+    a {
+        font-size: 14px;
+        font-weight: 400;
+    }
+}
