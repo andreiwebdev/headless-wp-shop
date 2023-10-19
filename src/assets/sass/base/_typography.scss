@@ -10,3 +10,13 @@ h3,
 h4 {
     font-weight: 500;
 }
+
+h1 {
+    font-size: 28px;
+}
+
+@media screen and (min-width: $bp-md) {
+    h1 {
+        font-size: 32px;
+    }
+}
