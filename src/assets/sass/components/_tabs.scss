@@ -1,0 +1,36 @@
+.products-tabs-section {
+    margin-bottom: 37px;
+}
+
+.tabs {
+    text-align: center;
+    margin-bottom: 18px;
+    .tab {
+        color: $col-gray;
+        cursor: pointer;
+        margin-bottom: 4px;
+        font-weight: 600;
+        &.active {
+            border-bottom: 2px solid $col-blue;
+            width: fit-content;
+            margin-left: auto;
+            margin-right: auto;
+        }
+    }
+}
+
+@media screen and (min-width: $bp-sm) {
+    .tabs {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 25px;
+        .tab {
+            &.active {
+                color: $col-text;
+                margin: initial;
+                margin-bottom: 4px;
+            }
+        }
+    }
+}

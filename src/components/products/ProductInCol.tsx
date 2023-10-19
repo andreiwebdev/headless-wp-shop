@@ -29,11 +29,11 @@ const ProductInCol = (props: Props) => {
             </a>
             <div className="rating">
                 <div className="stars">
-                    <AiFillStar class="full" />
-                    <AiFillStar class="full" />
-                    <AiFillStar class="full" />
-                    <AiFillStar class="full" />
-                    <AiFillStar class="empty" />
+                    <AiFillStar className="full" />
+                    <AiFillStar className="full" />
+                    <AiFillStar className="full" />
+                    <AiFillStar className="full" />
+                    <AiFillStar className="empty" />
                 </div>
                 <span>Reviews (4)</span>
             </div>

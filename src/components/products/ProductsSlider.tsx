@@ -59,32 +59,32 @@ const ProductsSlider = () => {
             inStock: true,
         },
         {
-            key: "1",
+            key: "7",
             imageId: "1",
             inStock: true,
         },
         {
-            key: "2",
+            key: "8",
             imageId: "2",
             inStock: false,
         },
         {
-            key: "3",
+            key: "9",
             imageId: "3",
             inStock: true,
         },
         {
-            key: "4",
+            key: "10",
             imageId: "4",
             inStock: true,
         },
         {
-            key: "5",
+            key: "11",
             imageId: "3",
             inStock: false,
         },
         {
-            key: "6",
+            key: "12",
             imageId: "2",
             inStock: true,
         },
