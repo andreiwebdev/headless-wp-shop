@@ -30,22 +30,24 @@ const Testimonials = () => {
     ];
 
     return (
-        <Swiper
-            modules={[Pagination]}
-            {...sliderOptions}
-            className="testimonials"
-        >
-            {testimonials.map((testimonial, key) => (
-                <SwiperSlide className="testimonial">
-                    <ImQuotesLeft />
-                    <p className="text">{testimonial.text}</p>
-                    <p className="author">- {testimonial.author}</p>
-                    <a href="#" className="btn btn--1">
-                        Leave Us A Review
-                    </a>
-                </SwiperSlide>
-            ))}
-        </Swiper>
+        <div className="container">
+            <Swiper
+                modules={[Pagination]}
+                {...sliderOptions}
+                className="testimonials"
+            >
+                {testimonials.map((testimonial, key) => (
+                    <SwiperSlide key={key} className="testimonial">
+                        <ImQuotesLeft />
+                        <p className="text">{testimonial.text}</p>
+                        <p className="author">- {testimonial.author}</p>
+                        <a href="#" className="btn btn--1">
+                            Leave Us A Review
+                        </a>
+                    </SwiperSlide>
+                ))}
+            </Swiper>
+        </div>
     );
 };
 

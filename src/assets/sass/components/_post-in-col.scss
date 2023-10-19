@@ -25,3 +25,9 @@
         font-weight: 400;
     }
 }
+
+@media screen and (min-width: $bp-md) {
+    .blog-posts-section {
+        margin-bottom: 68px;
+    }
+}
