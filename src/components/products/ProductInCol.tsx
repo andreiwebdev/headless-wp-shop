@@ -42,6 +42,7 @@ const ProductInCol = (props: Props) => {
             </a>
             <div className="old-price">$599.00</div>
             <div className="price">$499.00</div>
+            <button className="btn btn--2">Add to cart</button>
         </div>
     );
 };
