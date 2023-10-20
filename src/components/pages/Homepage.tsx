@@ -1,5 +1,4 @@
 import BlogPostsSection from "../blog/BlogPostsSection";
-import Advantages from "../common/Advantages";
 import BrandsBanner from "../common/BrandsBanner";
 import HeroSlider from "../common/HeroSlider";
 import Testimonials from "../common/Testimonials";
@@ -66,7 +65,6 @@ const Homepage = () => {
             <BrandsBanner />
             <BlogPostsSection />
             <Testimonials />
-            <Advantages />
         </>
     );
 };
