@@ -47,7 +47,7 @@ const Homepage = () => {
         <>
             <HeroSlider />
             <ProductsSliderSection />
-            <ProductsTabsSection
+            {/* <ProductsTabsSection
                 tabs={laptopTaxonomies}
                 bannerTitle="MSI Laptops"
                 bannerImageURL="../src/assets/images/banners/banner-1.png"
@@ -61,7 +61,7 @@ const Homepage = () => {
                 tabs={[]}
                 bannerTitle="Gaming Monitors"
                 bannerImageURL="../src/assets/images/banners/banner-3.png"
-            />
+            /> */}
             <BrandsBanner />
             <BlogPostsSection />
             <Testimonials />

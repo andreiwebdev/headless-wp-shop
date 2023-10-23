@@ -1,20 +1,22 @@
 import Faq from "./Faq";
 
-const FaqsSection = () => {
+type Props = {
+    faqs: [];
+};
+
+const FaqsSection = (props: Props) => {
     return (
         <div className="faq-section">
             <div className="container">
                 <div className="row align-items-md-center">
                     <div className="col-md-6">
-                        <Faq
-                            title="Product Support"
-                            text="This is an answer. 😄"
-                        />
-                        <Faq title="FAQ" text="This is an answer. 😄" />
-                        <Faq
-                            title="Our Buyer Guide"
-                            text="This is an answer. 😄"
-                        />
+                        {props.faqs?.map((faq: any, key: any) => (
+                            <Faq
+                                key={key}
+                                title={faq.question}
+                                text={faq.answer}
+                            />
+                        ))}
                     </div>
                     <div className="col-md-6 d-none d-md-block">
                         <img

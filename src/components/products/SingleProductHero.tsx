@@ -3,7 +3,14 @@ import "swiper/css/pagination";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination } from "swiper/modules";
 
-const SingleProductHero = () => {
+type Props = {
+    title: string;
+    content: string;
+    price: string;
+    productImages: [];
+};
+
+const SingleProductHero = (props: Props) => {
     const sliderOptions = {
         slidesPerView: 1,
         spaceBetween: 20,
@@ -16,13 +23,9 @@ const SingleProductHero = () => {
             <div className="row">
                 <div className="col-md-6">
                     <div className="product-info">
-                        <h2>MSI MPG Trident 3</h2>
-                        <p>
-                            MSI MPG Trident 3 10SC-005AU Intel i7 10700F, 2060
-                            SUPER, 16GB RAM, 512GB SSD, 2TB HDD, Windows 10
-                            Home, Gaming Keyboard and Mouse 3 Years Warranty
-                            Gaming Desktop
-                        </p>
+                        <h2>{props.title}</h2>
+                        <p>{props.content}</p>
+                        <h3 className="mb-4">${props.price}</h3>
                         <div className="btn btn--2">Add To Cart</div>
                     </div>
                 </div>
@@ -33,30 +36,16 @@ const SingleProductHero = () => {
                             {...sliderOptions}
                             className="single-product-slider"
                         >
-                            <SwiperSlide>
-                                <div
-                                    className="thumbnail"
-                                    style={{
-                                        backgroundImage: `url(../../src/assets/images/products/product-1.png)`,
-                                    }}
-                                ></div>
-                            </SwiperSlide>
-                            <SwiperSlide>
-                                <div
-                                    className="thumbnail"
-                                    style={{
-                                        backgroundImage: `url(../../src/assets/images/products/product-1.png)`,
-                                    }}
-                                ></div>
-                            </SwiperSlide>
-                            <SwiperSlide>
-                                <div
-                                    className="thumbnail"
-                                    style={{
-                                        backgroundImage: `url(../../src/assets/images/products/product-1.png)`,
-                                    }}
-                                ></div>
-                            </SwiperSlide>
+                            {props.productImages?.map((imageURL: any, key) => (
+                                <SwiperSlide key={key}>
+                                    <div
+                                        className="thumbnail"
+                                        style={{
+                                            backgroundImage: `url(${imageURL?.image?.sourceUrl})`,
+                                        }}
+                                    ></div>
+                                </SwiperSlide>
+                            ))}
                         </Swiper>
                     </div>
                 </div>

@@ -1,48 +1,33 @@
-const ProductFeaturesSection = () => {
-    const features = [
-        {
-            id: "1",
-        },
-        {
-            id: "2",
-        },
-        {
-            id: "3",
-        },
-        {
-            id: "4",
-        },
-    ];
+type Props = {
+    title: string;
+    text: string;
+    features: [];
+};
 
+const ProductFeaturesSection = (props: Props) => {
     return (
         <section className="product-features">
             <div className="container">
-                <h2>Features</h2>
-                <p>
-                    Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-                    Ratione excepturi ipsam facilis ipsa modi fugiat repellat
-                    perferendis, quibusdam laboriosam repellendus!
-                </p>
+                <h2>{props.title}</h2>
+                <p>{props.text}</p>
                 <div className="row">
-                    {features.map((feature) => (
+                    {props.features?.map((feature: any, key) => (
                         <div
-                            key={feature.id}
+                            key={key}
                             className="col-sm-6 col-md-4 col-lg-3 mb-4 mb-lg-0"
                         >
                             <div className="feature">
                                 <div className="icon-box">
                                     <img
-                                        src={`../../src/assets/images/features/feature-${feature.id}.png`}
+                                        src={feature?.image?.sourceUrl}
                                         alt="feature"
                                     />
                                 </div>
-                                <p>
-                                    Lorem, <strong>ipsum dolor sit</strong> amet
-                                    consectetur adipisicing elit. Cumque
-                                    corporis, est ducimus tempore nisi ipsum
-                                    necessitatibus? Voluptas hic esse officia
-                                    tenetur? Doloremque d
-                                </p>
+                                <p
+                                    dangerouslySetInnerHTML={{
+                                        __html: feature.text,
+                                    }}
+                                ></p>
                             </div>
                         </div>
                     ))}
