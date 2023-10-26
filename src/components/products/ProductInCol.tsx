@@ -7,6 +7,7 @@ type Props = {
     slug: string;
     title: string;
     fields: any;
+    inStock: boolean;
 };
 
 const ProductInCol = (props: Props) => {

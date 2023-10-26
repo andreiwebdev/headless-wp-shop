@@ -1,110 +1,148 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import BannerInCol from "../common/BannerInCol";
 import Tabs from "../common/Tabs";
 import ProductInCol from "./ProductInCol";
+import { gql, useQuery } from "@apollo/client";
 
-type Props = {
-    tabs: Array<{
-        id: string;
-        title: string;
-    }>;
-    bannerTitle: string;
-    bannerImageURL: string;
+type Term = {
+    name: string;
+    id: string;
+    uri: string;
+    taxfields: any;
+    products: any;
 };
 
-const ProductsTabsSection = (props: Props) => {
-    const [activeTab, setActiveTab] = useState(props.tabs[0]?.id);
+type Product = {
+    id: string;
+    slug: string;
+    title: string;
+    singleProduct: [];
+};
+
+const ProductsTabsSection = () => {
+    const GET_TAX_PRODUCTS_TERMS = gql`
+        query getProductsFromTaxAndTerms {
+            taxonomy(id: "dGF4b25vbXk6YnJhbmQ") {
+                id
+                name
+                connectedTerms {
+                    nodes {
+                        ... on Brand {
+                            id
+                            name
+                            count
+                            slug
+                            uri
+                            taxonomyName
+                            products {
+                                nodes {
+                                    title
+                                    id
+                                    slug
+                                    singleProduct {
+                                        bannerImage {
+                                            sourceUrl
+                                        }
+                                        bannerText
+                                        bannerTitle
+                                        faqs {
+                                            answer
+                                            question
+                                        }
+                                        featureText
+                                        featureTitle
+                                        features {
+                                            text
+                                            image {
+                                                sourceUrl
+                                            }
+                                        }
+                                        isAvailable
+                                        productImages {
+                                            image {
+                                                sourceUrl
+                                            }
+                                        }
+                                        productPrice
+                                        productRating
+                                    }
+                                    terms {
+                                        nodes {
+                                            name
+                                        }
+                                    }
+                                }
+                            }
+                            taxfields {
+                                image {
+                                    sourceUrl
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    `;
+
+    const { loading, error, data } = useQuery(GET_TAX_PRODUCTS_TERMS);
+
+    const [terms, setTerms] = useState([]);
+    const [activeTab, setActiveTab] = useState("");
+
+    useEffect(() => {
+        if (!loading && data) {
+            const fetchedTerms = data?.taxonomy?.connectedTerms?.nodes;
+            setTerms(fetchedTerms);
+            if (fetchedTerms.length > 0) {
+                setActiveTab(fetchedTerms[0].id);
+            }
+        }
+    }, [loading, data]);
+
+    if (loading) return <p>Loading...</p>;
+    if (error) return <p>Error! ${error.message}</p>;
+
+    const taxonomy = data?.taxonomy?.name;
 
     return (
         <div className="container products-tabs-section">
-            {props.tabs.length >= 1 ? (
-                <>
-                    <Tabs
-                        tabs={props.tabs}
-                        activeTab={activeTab}
-                        setTab={setActiveTab}
-                    />
-                    {props.tabs.map(
-                        (tab, key) =>
-                            tab.id == activeTab && (
-                                <div
-                                    className="row"
-                                    datatype={tab.id}
-                                    key={key}
-                                >
-                                    {tab.id == props.tabs[0].id ? (
-                                        <div className="col-sm-6 col-md-4 col-lg-3 col-xl-2 mb-3">
-                                            <BannerInCol
-                                                title={props.bannerTitle}
-                                                bannerURL={props.bannerImageURL}
-                                            />
-                                        </div>
-                                    ) : (
-                                        <div className="col-sm-6 col-md-4 col-lg-3 col-xl-2 mb-3">
-                                            <ProductInCol
-                                                inStock={false}
-                                                imageId="3"
-                                            />
-                                        </div>
-                                    )}
-                                    <div className="col-sm-6 col-md-4 col-lg-3 col-xl-2 mb-3">
+            <Tabs
+                taxonomy={taxonomy}
+                tabs={terms}
+                activeTab={activeTab}
+                setTab={setActiveTab}
+            />
+            {terms?.map(
+                (term: Term) =>
+                    term.id == activeTab && (
+                        <div className="row" datatype={term.id} key={term.id}>
+                            <div className="col-sm-6 col-md-4 col-lg-3 col-xl-2 mb-3">
+                                <BannerInCol
+                                    title={term.name}
+                                    uri={term.uri}
+                                    bannerURL={term.taxfields?.image?.sourceUrl}
+                                />
+                            </div>
+                            {term.products.nodes
+                                .filter(
+                                    (_product: any, index: number) => index < 5
+                                )
+                                .map((product: Product) => (
+                                    <div
+                                        key={product.id}
+                                        className="col-sm-6 col-md-4 col-lg-3 col-xl-2 mb-3"
+                                    >
                                         <ProductInCol
                                             inStock={true}
-                                            imageId="1"
+                                            slug={product.slug}
+                                            title={product.title}
+                                            fields={product.singleProduct}
                                         />
                                     </div>
-                                    <div className="col-sm-6 col-md-4 col-lg-3 col-xl-2 mb-3">
-                                        <ProductInCol
-                                            inStock={false}
-                                            imageId="3"
-                                        />
-                                    </div>
-                                    <div className="col-sm-6 col-md-4 col-lg-3 col-xl-2 mb-3">
-                                        <ProductInCol
-                                            inStock={true}
-                                            imageId="2"
-                                        />
-                                    </div>
-                                    <div className="col-sm-6 col-md-4 col-lg-3 col-xl-2 mb-3">
-                                        <ProductInCol
-                                            inStock={true}
-                                            imageId="4"
-                                        />
-                                    </div>
-                                    <div className="col-sm-6 col-md-4 col-lg-3 col-xl-2 mb-3">
-                                        <ProductInCol
-                                            inStock={true}
-                                            imageId="2"
-                                        />
-                                    </div>
-                                </div>
-                            )
-                    )}
-                </>
-            ) : (
-                <div className="row">
-                    <div className="col-sm-6 col-md-4 col-lg-3 col-xl-2 mb-3">
-                        <BannerInCol
-                            title={props.bannerTitle}
-                            bannerURL={props.bannerImageURL}
-                        />
-                    </div>
-                    <div className="col-sm-6 col-md-4 col-lg-3 col-xl-2 mb-3">
-                        <ProductInCol inStock={true} imageId="1" />
-                    </div>
-                    <div className="col-sm-6 col-md-4 col-lg-3 col-xl-2 mb-3">
-                        <ProductInCol inStock={false} imageId="3" />
-                    </div>
-                    <div className="col-sm-6 col-md-4 col-lg-3 col-xl-2 mb-3">
-                        <ProductInCol inStock={true} imageId="2" />
-                    </div>
-                    <div className="col-sm-6 col-md-4 col-lg-3 col-xl-2 mb-3">
-                        <ProductInCol inStock={true} imageId="4" />
-                    </div>
-                    <div className="col-sm-6 col-md-4 col-lg-3 col-xl-2 mb-3">
-                        <ProductInCol inStock={true} imageId="2" />
-                    </div>
-                </div>
+                                ))}
+                        </div>
+                    )
             )}
         </div>
     );
