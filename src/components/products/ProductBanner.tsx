@@ -1,7 +1,7 @@
 type Props = {
-    title: string;
-    text: string;
-    imageUrl: string;
+    title: string | undefined;
+    text: string | undefined;
+    imageUrl: string | undefined;
 };
 
 const ProductBanner = (props: Props) => {

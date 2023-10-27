@@ -4,10 +4,10 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination } from "swiper/modules";
 
 type Props = {
-    title: string;
-    content: string;
-    price: string;
-    productImages: [];
+    title: string | undefined;
+    content: string | undefined;
+    price: string | undefined;
+    productImages: [] | undefined;
 };
 
 const SingleProductHero = (props: Props) => {

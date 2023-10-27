@@ -1,7 +1,7 @@
 import Faq from "./Faq";
 
 type Props = {
-    faqs: [];
+    faqs: [] | undefined;
 };
 
 const FaqsSection = (props: Props) => {

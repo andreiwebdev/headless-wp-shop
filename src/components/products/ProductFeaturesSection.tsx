@@ -1,7 +1,7 @@
 type Props = {
-    title: string;
-    text: string;
-    features: [];
+    title: string | undefined;
+    text: string | undefined;
+    features: [] | undefined;
 };
 
 const ProductFeaturesSection = (props: Props) => {
