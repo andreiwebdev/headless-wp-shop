@@ -49,9 +49,9 @@ const ProductInCol = (props: Props) => {
                 </div>
                 <span>Reviews ({props.fields?.productRating})</span>
             </div>
-            <a href="#">
+            <Link to={`/products/${props.slug}`}>
                 <h4>{props.title}</h4>
-            </a>
+            </Link>
             <div className="old-price">$1{props.fields?.productPrice}</div>
             <div className="price">${props.fields?.productPrice}</div>
             <button className="btn btn--2">Add to cart</button>
