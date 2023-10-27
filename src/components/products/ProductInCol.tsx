@@ -7,7 +7,6 @@ type Props = {
     slug: string;
     title: string;
     fields: any;
-    inStock: boolean;
 };
 
 const ProductInCol = (props: Props) => {
@@ -33,7 +32,7 @@ const ProductInCol = (props: Props) => {
                     <span>check availability</span>
                 </div>
             )}
-            <Link to={`/products/${props.slug}`}>
+            <Link to={`/product/${props.slug}`}>
                 <div
                     className="product-image"
                     style={{
@@ -49,7 +48,7 @@ const ProductInCol = (props: Props) => {
                 </div>
                 <span>Reviews ({props.fields?.productRating})</span>
             </div>
-            <Link to={`/products/${props.slug}`}>
+            <Link to={`/product/${props.slug}`}>
                 <h4>{props.title}</h4>
             </Link>
             <div className="old-price">$1{props.fields?.productPrice}</div>

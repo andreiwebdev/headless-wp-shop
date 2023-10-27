@@ -12,7 +12,7 @@ function App() {
             <Navbar />
             <Routes>
                 <Route path="/" element={<Homepage />} />
-                <Route path="/products/:slug" element={<SingleProduct />} />
+                <Route path="/product/:slug" element={<SingleProduct />} />
                 <Route path="*" element={<h1>404 Not Found</h1>} />
             </Routes>
             <Footer />

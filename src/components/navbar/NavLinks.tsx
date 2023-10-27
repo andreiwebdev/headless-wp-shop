@@ -1,25 +1,51 @@
+import { gql, useQuery } from "@apollo/client";
+import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+
+type Item = {
+    node: any;
+};
+
 const NavLinks = () => {
+    const GET_MENU_ITEMS = gql`
+        query MyQuery2 {
+            menu(id: "12", idType: DATABASE_ID) {
+                id
+                menuItems {
+                    edges {
+                        node {
+                            id
+                            label
+                            uri
+                        }
+                    }
+                }
+            }
+        }
+    `;
+
+    const [menuItems, setMenuItems] = useState([]);
+    const { loading, error, data } = useQuery(GET_MENU_ITEMS);
+
+    useEffect(() => {
+        if (!loading && data) {
+            const menuItems = data?.menu?.menuItems?.edges;
+            setMenuItems(menuItems);
+        }
+    }, [loading, data]);
+
+    if (loading) return <p>Loading...</p>;
+
+    if (error) return <p>Error {error.message}</p>;
+
     return (
         <div className="nav-links">
             <ul>
-                <li>
-                    <a href="#">Laptops</a>
-                </li>
-                <li>
-                    <a href="#">Desktop PCs</a>
-                </li>
-                <li>
-                    <a href="#">Networking Devices</a>
-                </li>
-                <li>
-                    <a href="#">Printers & Scanners</a>
-                </li>
-                <li>
-                    <a href="#">PC Parts</a>
-                </li>
-                <li>
-                    <a href="#">All Other Products</a>
-                </li>
+                {menuItems?.map((item: Item) => (
+                    <li key={item?.node?.id}>
+                        <Link to={item?.node?.uri}>{item?.node?.label}</Link>
+                    </li>
+                ))}
                 <li className="d-xl-none">
                     <a href="#">My Account</a>
                 </li>
