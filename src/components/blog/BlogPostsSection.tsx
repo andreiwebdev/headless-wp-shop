@@ -36,7 +36,6 @@ const BlogPostsSection = () => {
     useEffect(() => {
         if (!loading && data) {
             const posts = data?.posts?.nodes;
-            console.log(posts);
 
             setPosts(posts);
         }
@@ -51,6 +50,7 @@ const BlogPostsSection = () => {
             <div className="row">
                 {posts.map((post: Post) => (
                     <PostInCol
+                        key={post.id}
                         id={post.id}
                         title={post.title}
                         image={post.featuredImage?.node?.sourceUrl}
