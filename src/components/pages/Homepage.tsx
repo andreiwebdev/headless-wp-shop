@@ -1,12 +1,13 @@
-import { useEffect, useState } from "react";
-
+import React, { Suspense, useEffect, useState } from "react";
 import BlogPostsSection from "../blog/BlogPostsSection";
 import BrandsBanner from "../common/BrandsBanner";
 import HeroSlider from "../common/HeroSlider";
-import Testimonials from "../common/Testimonials";
 import ProductsSliderSection from "../products/ProductsSliderSection";
 import ProductsTabsSection from "../products/ProductsTabsSection";
 import { gql, useQuery } from "@apollo/client";
+import Skeleton from "../layout/Skeleton";
+
+const Testimonials = React.lazy(() => import("../common/Testimonials"));
 
 const Homepage = () => {
     const GET_HP_FIELDS = gql`
@@ -27,7 +28,7 @@ const Homepage = () => {
 
     const [testimonials, setTestimonials] = useState([]);
 
-    const { loading, error, data } = useQuery(GET_HP_FIELDS);
+    const { loading, data } = useQuery(GET_HP_FIELDS);
 
     useEffect(() => {
         if (!loading && data) {
@@ -37,10 +38,6 @@ const Homepage = () => {
         }
     }, [loading, data]);
 
-    if (loading) return <p>Loading...</p>;
-
-    if (error) return <p>Error: {error.message}</p>;
-
     return (
         <>
             <HeroSlider />
@@ -48,7 +45,9 @@ const Homepage = () => {
             <ProductsTabsSection />
             <BrandsBanner />
             <BlogPostsSection />
-            <Testimonials testimonials={testimonials} />
+            <Suspense fallback={<Skeleton type="rectangle" />}>
+                <Testimonials testimonials={testimonials} />
+            </Suspense>
         </>
     );
 };

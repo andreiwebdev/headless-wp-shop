@@ -1,10 +1,12 @@
 import "swiper/css";
 import "swiper/css/pagination";
+import React, { Suspense } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
-import ProductInCol from "./ProductInCol";
 import { Pagination } from "swiper/modules";
-
 import { gql, useQuery } from "@apollo/client";
+import Skeleton from "../layout/Skeleton";
+
+const ProductInCol = React.lazy(() => import("./ProductInCol"));
 
 const ProductsSlider = () => {
     const sliderOptions = {
@@ -70,23 +72,19 @@ const ProductsSlider = () => {
     const { data } = useQuery(GET_LATEST_PRODUCTS);
 
     return (
-        <>
-            <Swiper
-                modules={[Pagination]}
-                {...sliderOptions}
-                className="slider-1"
-            >
-                {data?.products?.nodes?.map((product: any, key: number) => (
-                    <SwiperSlide key={key}>
+        <Swiper modules={[Pagination]} {...sliderOptions} className="slider-1">
+            {data?.products?.nodes?.map((product: any, key: any) => (
+                <SwiperSlide key={product.id || key}>
+                    <Suspense fallback={<Skeleton type="card" />}>
                         <ProductInCol
                             title={product.title}
                             slug={product.slug}
                             fields={product.singleProduct}
                         />
-                    </SwiperSlide>
-                ))}
-            </Swiper>
-        </>
+                    </Suspense>
+                </SwiperSlide>
+            ))}
+        </Swiper>
     );
 };
 

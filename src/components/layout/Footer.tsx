@@ -1,8 +1,13 @@
 import { gql, useQuery } from "@apollo/client";
 import Advantages from "../common/Advantages";
 import { AiFillFacebook, AiFillInstagram } from "react-icons/ai";
-import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import React, { Suspense, useEffect, useState } from "react";
+import Skeleton from "./Skeleton";
+
+const FooterListItem = React.lazy(() => import("../footer/FooterListItem"));
+const FooterListItemLabel = React.lazy(
+    () => import("../footer/FooterListItemLabel")
+);
 
 interface ChildItem {
     id: string;
@@ -48,7 +53,7 @@ const Footer = () => {
     `;
 
     const [footerItems, setFooterItems] = useState([]);
-    const { loading, error, data } = useQuery(GET_FOOTER_MENU);
+    const { loading, data } = useQuery(GET_FOOTER_MENU);
 
     useEffect(() => {
         if (!loading && data) {
@@ -56,10 +61,6 @@ const Footer = () => {
             setFooterItems(response);
         }
     }, [loading, data]);
-
-    if (loading) return <p>Loading</p>;
-
-    if (error) return <p>Error {error.message}</p>;
 
     return (
         <>
@@ -91,19 +92,31 @@ const Footer = () => {
                                     key={item.node.id}
                                     className="col-sm-6 col-md-4 col-lg-3 col-xl-2 mb-3"
                                 >
-                                    <h4>{item.node.label}</h4>
+                                    <Suspense
+                                        fallback={<Skeleton type="line-100" />}
+                                    >
+                                        <FooterListItemLabel
+                                            label={item.node.label}
+                                        />
+                                    </Suspense>
                                     <ul>
                                         {item.node.childItems.nodes.map(
-                                            (childItem: ChildItem) => (
-                                                <li key={childItem.id}>
-                                                    <Link to={childItem.uri}>
-                                                        {childItem.label.slice(
-                                                            0,
-                                                            19
-                                                        )}
-                                                        ...
-                                                    </Link>
-                                                </li>
+                                            (
+                                                childItem: ChildItem,
+                                                key: number
+                                            ) => (
+                                                <Suspense
+                                                    key={key}
+                                                    fallback={
+                                                        <Skeleton type="line-100" />
+                                                    }
+                                                >
+                                                    <FooterListItem
+                                                        id={childItem.id}
+                                                        label={childItem.label}
+                                                        uri={childItem.uri}
+                                                    />
+                                                </Suspense>
                                             )
                                         )}
                                     </ul>

@@ -1,6 +1,12 @@
 import { gql, useQuery } from "@apollo/client";
-import { useState, useEffect } from "react";
+import React, { useState, useEffect, Suspense } from "react";
 import { useParams } from "react-router-dom";
+import Skeleton from "../layout/Skeleton";
+
+const SinglePostContent = React.lazy(
+    () => import("../common/SinglePostContent")
+);
+const BlogPostsSection = React.lazy(() => import("../blog/BlogPostsSection"));
 
 interface FeaturedImageNode {
     altText: string;
@@ -35,7 +41,7 @@ const SinglePost = () => {
             }
         }
     `;
-    const { loading, error, data } = useQuery(GET_POST_DATA);
+    const { loading, data } = useQuery(GET_POST_DATA);
     const [postData, setPostData] = useState<PostData | null>(null);
 
     useEffect(() => {
@@ -46,33 +52,19 @@ const SinglePost = () => {
         }
     }, [loading, data]);
 
-    if (loading) return <p>Loading...</p>;
-    if (error) return <p>Error! {error.message}</p>;
-
     return (
-        <div className="container single-post">
-            <div className="row mb-4 mb-md-5">
-                <div className="col-md-8">
-                    <h1>{postData?.title}</h1>
-                    <div
-                        dangerouslySetInnerHTML={{
-                            __html: postData?.excerpt ?? "",
-                        }}
-                    ></div>
-                </div>
-                <div className="col-md-4">
-                    <img
-                        src={postData?.featuredImage?.node?.sourceUrl}
-                        alt={postData?.featuredImage?.node?.altText}
-                    />
-                </div>
+        <Suspense fallback={<Skeleton type="page" />}>
+            <div className="container single-post">
+                <SinglePostContent
+                    title={postData?.title}
+                    excerpt={postData?.excerpt}
+                    sourceUrl={postData?.featuredImage?.node?.sourceUrl}
+                    altText={postData?.featuredImage?.node?.altText}
+                    content={postData?.content}
+                />
             </div>
-            <div
-                dangerouslySetInnerHTML={{
-                    __html: postData?.content ?? "",
-                }}
-            ></div>
-        </div>
+            <BlogPostsSection />
+        </Suspense>
     );
 };
 

@@ -1,8 +1,10 @@
-import { useState, useEffect } from "react";
-import BannerInCol from "../common/BannerInCol";
+import React, { useState, useEffect, Suspense } from "react";
 import Tabs from "../common/Tabs";
-import ProductInCol from "./ProductInCol";
 import { gql, useQuery } from "@apollo/client";
+import Skeleton from "../layout/Skeleton";
+
+const BannerInCol = React.lazy(() => import("../common/BannerInCol"));
+const ProductInCol = React.lazy(() => import("./ProductInCol"));
 
 type Term = {
     name: string;
@@ -85,7 +87,7 @@ const ProductsTabsSection = () => {
         }
     `;
 
-    const { loading, error, data } = useQuery(GET_TAX_PRODUCTS_TERMS);
+    const { loading, data } = useQuery(GET_TAX_PRODUCTS_TERMS);
 
     const [terms, setTerms] = useState([]);
     const [activeTab, setActiveTab] = useState("");
@@ -99,9 +101,6 @@ const ProductsTabsSection = () => {
             }
         }
     }, [loading, data]);
-
-    if (loading) return <p>Loading...</p>;
-    if (error) return <p>Error! ${error.message}</p>;
 
     const taxonomy = data?.taxonomy?.name;
 
@@ -118,11 +117,15 @@ const ProductsTabsSection = () => {
                     term.id == activeTab && (
                         <div className="row" datatype={term.id} key={term.id}>
                             <div className="col-sm-6 col-md-4 col-lg-3 col-xl-2 mb-3">
-                                <BannerInCol
-                                    title={term.name}
-                                    uri={term.uri}
-                                    bannerURL={term.taxfields?.image?.sourceUrl}
-                                />
+                                <Suspense fallback={<Skeleton type="card" />}>
+                                    <BannerInCol
+                                        title={term.name}
+                                        uri={term.uri}
+                                        bannerURL={
+                                            term.taxfields?.image?.sourceUrl
+                                        }
+                                    />
+                                </Suspense>
                             </div>
                             {term.products.nodes
                                 .filter(
@@ -133,12 +136,15 @@ const ProductsTabsSection = () => {
                                         key={product.id}
                                         className="col-sm-6 col-md-4 col-lg-3 col-xl-2 mb-3"
                                     >
-                                        <ProductInCol
-                                            inStock={true}
-                                            slug={product.slug}
-                                            title={product.title}
-                                            fields={product.singleProduct}
-                                        />
+                                        <Suspense
+                                            fallback={<Skeleton type="card" />}
+                                        >
+                                            <ProductInCol
+                                                slug={product.slug}
+                                                title={product.title}
+                                                fields={product.singleProduct}
+                                            />
+                                        </Suspense>
                                     </div>
                                 ))}
                         </div>

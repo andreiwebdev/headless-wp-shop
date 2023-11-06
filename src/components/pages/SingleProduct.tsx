@@ -1,10 +1,16 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Suspense } from "react";
 import { useParams } from "react-router-dom";
-import FaqsSection from "../common/FaqsSection";
-import ProductBanner from "../products/ProductBanner";
-import ProductFeaturesSection from "../products/ProductFeaturesSection";
-import SingleProductHero from "../products/SingleProductHero";
 import { gql, useQuery } from "@apollo/client";
+import Skeleton from "../layout/Skeleton";
+
+const SingleProductHero = React.lazy(
+    () => import("../products/SingleProductHero")
+);
+const ProductBanner = React.lazy(() => import("../products/ProductBanner"));
+const FaqsSection = React.lazy(() => import("../common/FaqsSection"));
+const ProductFeaturesSection = React.lazy(
+    () => import("../products/ProductFeaturesSection")
+);
 
 type Product = {
     title: string;
@@ -64,7 +70,7 @@ const SingleProduct: React.FC = () => {
         }
     `;
 
-    const { loading, error, data } = useQuery(GET_PRODUCT);
+    const { loading, data } = useQuery(GET_PRODUCT);
 
     const [productData, setProductData] = useState<Product | null>(null);
     const [productFields, setProductFields] = useState<ProductFields | null>(
@@ -80,28 +86,27 @@ const SingleProduct: React.FC = () => {
         }
     }, [loading, data]);
 
-    if (loading) return <p>Loading...</p>;
-    if (error) return <p>Error! {error.message}</p>;
-
     return (
         <>
-            <SingleProductHero
-                title={productData?.title}
-                content={productData?.title}
-                price={productFields?.productPrice}
-                productImages={productFields?.productImages}
-            />
-            <ProductBanner
-                title={productFields?.bannerTitle}
-                text={productFields?.bannerText}
-                imageUrl={productFields?.bannerImage?.sourceUrl}
-            />
-            <FaqsSection faqs={productFields?.faqs} />
-            <ProductFeaturesSection
-                title={productFields?.featureTitle}
-                text={productFields?.featureText}
-                features={productFields?.features}
-            />
+            <Suspense fallback={<Skeleton type="page" />}>
+                <SingleProductHero
+                    title={productData?.title}
+                    content={productData?.title}
+                    price={productFields?.productPrice}
+                    productImages={productFields?.productImages}
+                />
+                <ProductBanner
+                    title={productFields?.bannerTitle}
+                    text={productFields?.bannerText}
+                    imageUrl={productFields?.bannerImage?.sourceUrl}
+                />
+                <FaqsSection faqs={productFields?.faqs} />
+                <ProductFeaturesSection
+                    title={productFields?.featureTitle}
+                    text={productFields?.featureText}
+                    features={productFields?.features}
+                />
+            </Suspense>
         </>
     );
 };

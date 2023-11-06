@@ -1,6 +1,8 @@
 import { gql, useQuery } from "@apollo/client";
-import { useState, useEffect } from "react";
-import PostInCol from "./PostInCol";
+import React, { useState, useEffect, Suspense } from "react";
+import Skeleton from "../layout/Skeleton";
+
+const PostInCol = React.lazy(() => import("./PostInCol"));
 
 type Post = {
     id: string;
@@ -31,7 +33,7 @@ const BlogPostsSection = () => {
     `;
 
     const [posts, setPosts] = useState([]);
-    const { loading, error, data } = useQuery(GET_POSTS);
+    const { loading, data } = useQuery(GET_POSTS);
 
     useEffect(() => {
         if (!loading && data) {
@@ -41,22 +43,25 @@ const BlogPostsSection = () => {
         }
     }, [loading, data]);
 
-    if (loading) return <p>Loading...</p>;
-
-    if (error) return <p>Error {error.message}</p>;
-
     return (
         <div className="container blog-posts-section">
+            <h2 className="mb-4">Featured Articles</h2>
             <div className="row">
                 {posts.map((post: Post) => (
-                    <PostInCol
+                    <div
                         key={post.id}
-                        id={post.id}
-                        title={post.title}
-                        image={post.featuredImage?.node?.sourceUrl}
-                        excerpt={post.excerpt}
-                        uri={post.uri}
-                    />
+                        className="col-sm-6 col-md-4 col-lg-3 mb-4 md-md-3"
+                    >
+                        <Suspense fallback={<Skeleton type="card" />}>
+                            <PostInCol
+                                id={post.id}
+                                title={post.title}
+                                image={post.featuredImage?.node?.sourceUrl}
+                                excerpt={post.excerpt}
+                                uri={post.uri}
+                            />
+                        </Suspense>
+                    </div>
                 ))}
             </div>
         </div>

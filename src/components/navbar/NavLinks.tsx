@@ -1,6 +1,8 @@
+import React, { useState, useEffect, Suspense } from "react";
 import { gql, useQuery } from "@apollo/client";
-import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import Skeleton from "../layout/Skeleton";
+
+const NavItem = React.lazy(() => import("./NavItem"));
 
 type Item = {
     node: any;
@@ -25,7 +27,7 @@ const NavLinks = () => {
     `;
 
     const [menuItems, setMenuItems] = useState([]);
-    const { loading, error, data } = useQuery(GET_MENU_ITEMS);
+    const { loading, data } = useQuery(GET_MENU_ITEMS);
 
     useEffect(() => {
         if (!loading && data) {
@@ -34,17 +36,21 @@ const NavLinks = () => {
         }
     }, [loading, data]);
 
-    if (loading) return <p>Loading...</p>;
-
-    if (error) return <p>Error {error.message}</p>;
-
     return (
         <div className="nav-links">
             <ul>
-                {menuItems?.map((item: Item) => (
-                    <li key={item?.node?.id}>
-                        <Link to={item?.node?.uri}>{item?.node?.label}</Link>
-                    </li>
+                {menuItems?.map((item: Item, key: number) => (
+                    <Suspense
+                        key={key}
+                        fallback={<Skeleton type="line-navbar" />}
+                    >
+                        <NavItem
+                            key={item?.node?.id}
+                            id={item?.node?.id}
+                            label={item?.node?.label}
+                            uri={item?.node?.uri}
+                        />
+                    </Suspense>
                 ))}
                 <li className="d-xl-none">
                     <a href="#">My Account</a>
