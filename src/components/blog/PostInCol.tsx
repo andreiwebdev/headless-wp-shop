@@ -12,7 +12,7 @@ const PostInCol = (props: Props) => {
     return (
         <div key={props.id} className="col-sm-6 col-md-4 col-lg-3 mb-4 md-md-3">
             <div className="post-in-col">
-                <Link to={`/blog${props.uri}`}>
+                <Link to={props.uri}>
                     <div
                         className="thumbnail"
                         style={{
@@ -20,11 +20,11 @@ const PostInCol = (props: Props) => {
                         }}
                     ></div>
                 </Link>
-                <Link to={`/blog${props.uri}`}>
+                <Link to={props.uri}>
                     <h3>{props.title}</h3>
                 </Link>
                 <Link
-                    to={`/blog${props.uri}`}
+                    to={props.uri}
                     dangerouslySetInnerHTML={{
                         __html: props.excerpt,
                     }}
