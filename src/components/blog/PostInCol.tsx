@@ -26,7 +26,7 @@ const PostInCol = (props: Props) => {
                 <Link
                     to={props.uri}
                     dangerouslySetInnerHTML={{
-                        __html: props.excerpt,
+                        __html: props.excerpt.slice(0, 150) + "[...]",
                     }}
                 ></Link>
             </div>
