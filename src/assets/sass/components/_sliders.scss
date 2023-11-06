@@ -58,6 +58,10 @@
     }
 }
 
+.swiper-slide {
+    height: auto;
+}
+
 @media screen and (min-width: $bp-md) {
     .hero-slider {
         &--1 {

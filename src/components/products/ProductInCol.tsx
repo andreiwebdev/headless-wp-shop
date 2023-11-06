@@ -21,38 +21,40 @@ const ProductInCol = (props: Props) => {
 
     return (
         <div className="product-in-col">
-            {props.fields?.isAvailable ? (
-                <div className="product-avaiable in-stock">
-                    <AiFillCheckCircle />
-                    <span>in stock</span>
+            <div>
+                {props.fields?.isAvailable ? (
+                    <div className="product-avaiable in-stock">
+                        <AiFillCheckCircle />
+                        <span>in stock</span>
+                    </div>
+                ) : (
+                    <div className="product-avaiable need-check">
+                        <CgUnavailable />
+                        <span>check availability</span>
+                    </div>
+                )}
+                <Link to={`/product/${props.slug}`}>
+                    <div
+                        className="product-image"
+                        style={{
+                            backgroundImage: `url(${props.fields?.productImages[0]?.image?.sourceUrl})`,
+                        }}
+                    ></div>
+                </Link>
+                <div className="rating">
+                    <div className="stars">
+                        {rating.map((type, key) => (
+                            <AiFillStar key={key} className={type} />
+                        ))}
+                    </div>
+                    <span>Reviews ({props.fields?.productRating})</span>
                 </div>
-            ) : (
-                <div className="product-avaiable need-check">
-                    <CgUnavailable />
-                    <span>check availability</span>
-                </div>
-            )}
-            <Link to={`/product/${props.slug}`}>
-                <div
-                    className="product-image"
-                    style={{
-                        backgroundImage: `url(${props.fields?.productImages[0]?.image?.sourceUrl})`,
-                    }}
-                ></div>
-            </Link>
-            <div className="rating">
-                <div className="stars">
-                    {rating.map((type, key) => (
-                        <AiFillStar key={key} className={type} />
-                    ))}
-                </div>
-                <span>Reviews ({props.fields?.productRating})</span>
+                <Link to={`/product/${props.slug}`}>
+                    <h4>{props.title}</h4>
+                </Link>
+                <div className="old-price">$1{props.fields?.productPrice}</div>
+                <div className="price">${props.fields?.productPrice}</div>
             </div>
-            <Link to={`/product/${props.slug}`}>
-                <h4>{props.title}</h4>
-            </Link>
-            <div className="old-price">$1{props.fields?.productPrice}</div>
-            <div className="price">${props.fields?.productPrice}</div>
             <button className="btn btn--2">Add to cart</button>
         </div>
     );
