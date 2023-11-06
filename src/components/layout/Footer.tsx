@@ -1,7 +1,66 @@
+import { gql, useQuery } from "@apollo/client";
 import Advantages from "../common/Advantages";
 import { AiFillFacebook, AiFillInstagram } from "react-icons/ai";
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+
+interface ChildItem {
+    id: string;
+    label: string;
+    uri: string;
+}
+
+interface FooterItemNode {
+    id: string;
+    label: string;
+    childItems: {
+        nodes: ChildItem[];
+    };
+}
+
+interface FooterItem {
+    node: FooterItemNode;
+}
 
 const Footer = () => {
+    const GET_FOOTER_MENU = gql`
+        query footerMenu {
+            menu(id: "18", idType: DATABASE_ID) {
+                id
+                menuItems {
+                    edges {
+                        node {
+                            id
+                            label
+                            uri
+                            childItems {
+                                nodes {
+                                    id
+                                    label
+                                    uri
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    `;
+
+    const [footerItems, setFooterItems] = useState([]);
+    const { loading, error, data } = useQuery(GET_FOOTER_MENU);
+
+    useEffect(() => {
+        if (!loading && data) {
+            const response = data?.menu?.menuItems?.edges;
+            setFooterItems(response);
+        }
+    }, [loading, data]);
+
+    if (loading) return <p>Loading</p>;
+
+    if (error) return <p>Error {error.message}</p>;
+
     return (
         <>
             <Advantages />
@@ -22,108 +81,34 @@ const Footer = () => {
                         </div>
                     </div>
                     <div className="row mb-4 mb-md-5">
-                        <div className="col-sm-6 col-md-4 col-lg-3 col-xl-2 mb-3">
-                            <h4>Information</h4>
-                            <ul>
-                                <li>
-                                    <a href="#">About Us</a>
-                                </li>
-                                <li>
-                                    <a href="#">About Zip</a>
-                                </li>
-                                <li>
-                                    <a href="#">Lorem, ipsum dolor.</a>
-                                </li>
-                                <li>
-                                    <a href="#">Lorem, ipsum.</a>
-                                </li>
-                            </ul>
-                        </div>
-                        <div className="col-sm-6 col-md-4 col-lg-3 col-xl-2 mb-3">
-                            <h4>PC Parts</h4>
-                            <ul>
-                                <li>
-                                    <a href="#">About Us</a>
-                                </li>
-                                <li>
-                                    <a href="#">About Zip</a>
-                                </li>
-                                <li>
-                                    <a href="#">Lorem, ipsum dolor.</a>
-                                </li>
-                                <li>
-                                    <a href="#">Lorem, ipsum.</a>
-                                </li>
-                            </ul>
-                        </div>
-                        <div className="col-sm-6 col-md-4 col-lg-3 col-xl-2 mb-3">
-                            <h4>Desktop PCs</h4>
-                            <ul>
-                                <li>
-                                    <a href="#">About Us</a>
-                                </li>
-                                <li>
-                                    <a href="#">About Zip</a>
-                                </li>
-                                <li>
-                                    <a href="#">Lorem, ipsum dolor.</a>
-                                </li>
-                                <li>
-                                    <a href="#">Lorem, ipsum.</a>
-                                </li>
-                            </ul>
-                        </div>
-                        <div className="col-sm-6 col-md-4 col-lg-3 col-xl-2 mb-3">
-                            <h4>Laptops</h4>
-                            <ul>
-                                <li>
-                                    <a href="#">About Us</a>
-                                </li>
-                                <li>
-                                    <a href="#">About Zip</a>
-                                </li>
-                                <li>
-                                    <a href="#">Lorem, ipsum dolor.</a>
-                                </li>
-                                <li>
-                                    <a href="#">Lorem, ipsum.</a>
-                                </li>
-                            </ul>
-                        </div>
-                        <div className="col-sm-6 col-md-4 col-lg-3 col-xl-2 mb-3">
-                            <h4>Address</h4>
-                            <ul>
-                                <li>
-                                    <a href="#">About Us</a>
-                                </li>
-                                <li>
-                                    <a href="#">About Zip</a>
-                                </li>
-                                <li>
-                                    <a href="#">Lorem, ipsum dolor.</a>
-                                </li>
-                                <li>
-                                    <a href="#">Lorem, ipsum.</a>
-                                </li>
-                            </ul>
-                        </div>
-                        <div className="col-sm-6 col-md-4 col-lg-3 col-xl-2 mb-3">
-                            <h4>Address</h4>
-                            <ul>
-                                <li>
-                                    <a href="#">About Us</a>
-                                </li>
-                                <li>
-                                    <a href="#">About Zip</a>
-                                </li>
-                                <li>
-                                    <a href="#">Lorem, ipsum dolor.</a>
-                                </li>
-                                <li>
-                                    <a href="#">Lorem, ipsum.</a>
-                                </li>
-                            </ul>
-                        </div>
+                        {footerItems
+                            ?.filter(
+                                (item: FooterItem) =>
+                                    item.node.childItems.nodes.length >= 1
+                            )
+                            .map((item: FooterItem) => (
+                                <div
+                                    key={item.node.id}
+                                    className="col-sm-6 col-md-4 col-lg-3 col-xl-2 mb-3"
+                                >
+                                    <h4>{item.node.label}</h4>
+                                    <ul>
+                                        {item.node.childItems.nodes.map(
+                                            (childItem: ChildItem) => (
+                                                <li key={childItem.id}>
+                                                    <Link to={childItem.uri}>
+                                                        {childItem.label.slice(
+                                                            0,
+                                                            19
+                                                        )}
+                                                        ...
+                                                    </Link>
+                                                </li>
+                                            )
+                                        )}
+                                    </ul>
+                                </div>
+                            ))}
                     </div>
                     <div className="row bottom-bar">
                         <div className="col-6">
