@@ -22,6 +22,11 @@ a:link {
     color: $col-blue;
 }
 
+img {
+    width: 100%;
+    height: auto;
+}
+
 @media screen and (min-width: $bp-md) {
     h1 {
         font-size: 32px;

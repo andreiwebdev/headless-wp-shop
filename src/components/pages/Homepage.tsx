@@ -1,5 +1,5 @@
 import React, { Suspense, useEffect, useState } from "react";
-import BlogPostsSection from "../blog/BlogPostsSection";
+import LatestBlogPostsSection from "../blog/LatestBlogPostsSection";
 import BrandsBanner from "../common/BrandsBanner";
 import HeroSlider from "../common/HeroSlider";
 import ProductsSliderSection from "../products/ProductsSliderSection";
@@ -44,7 +44,7 @@ const Homepage = () => {
             <ProductsSliderSection />
             <ProductsTabsSection />
             <BrandsBanner />
-            <BlogPostsSection />
+            <LatestBlogPostsSection />
             <Suspense fallback={<Skeleton type="rectangle" />}>
                 <Testimonials testimonials={testimonials} />
             </Suspense>

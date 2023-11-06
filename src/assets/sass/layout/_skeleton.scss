@@ -49,10 +49,16 @@
     margin-right: 20px;
 }
 
-.page-skeleton {
-    margin-bottom: 300px;
+.page-skeleton,
+.blog-skeleton {
+    height: 100%;
     .image {
-        height: 350px;
+        height: 200px;
+    }
+    .hero {
+        .image {
+            height: 350px;
+        }
     }
 }
 

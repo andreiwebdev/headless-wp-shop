@@ -6,7 +6,9 @@ import Skeleton from "../layout/Skeleton";
 const SinglePostContent = React.lazy(
     () => import("../common/SinglePostContent")
 );
-const BlogPostsSection = React.lazy(() => import("../blog/BlogPostsSection"));
+const LatestBlogPostsSection = React.lazy(
+    () => import("../blog/LatestBlogPostsSection")
+);
 
 interface FeaturedImageNode {
     altText: string;
@@ -48,7 +50,6 @@ const SinglePost = () => {
         if (!loading && data) {
             const response = data?.post;
             setPostData(response);
-            console.log(postData);
         }
     }, [loading, data]);
 
@@ -63,7 +64,7 @@ const SinglePost = () => {
                     content={postData?.content}
                 />
             </div>
-            <BlogPostsSection />
+            <LatestBlogPostsSection />
         </Suspense>
     );
 };

@@ -1,6 +1,7 @@
 import { gql, useQuery } from "@apollo/client";
 import React, { useState, useEffect, Suspense } from "react";
 import Skeleton from "../layout/Skeleton";
+import HeadingWithLink from "../common/HeadingWithLink";
 
 const PostInCol = React.lazy(() => import("./PostInCol"));
 
@@ -13,7 +14,7 @@ type Post = {
     uri: string;
 };
 
-const BlogPostsSection = () => {
+const LatestBlogPostsSection = () => {
     const GET_POSTS = gql`
         query BlogPosts {
             posts(last: 4) {
@@ -45,7 +46,11 @@ const BlogPostsSection = () => {
 
     return (
         <div className="container blog-posts-section">
-            <h2 className="mb-4">Featured Articles</h2>
+            <HeadingWithLink
+                heading="Latest Articles"
+                linkText="See All Articles"
+                link="/blog/"
+            />
             <div className="row">
                 {posts.map((post: Post) => (
                     <div
@@ -68,4 +73,4 @@ const BlogPostsSection = () => {
     );
 };
 
-export default BlogPostsSection;
+export default LatestBlogPostsSection;
