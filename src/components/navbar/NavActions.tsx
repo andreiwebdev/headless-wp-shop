@@ -8,6 +8,7 @@ import { BiSearch } from "react-icons/bi";
 
 // images
 import ProductImage from "../../assets/images/products/product-1.png";
+import NavSearch from "./NavSearch";
 
 const NavActions = () => {
     const [isCartOpen, setIsCartOpen] = useState(false);
@@ -139,15 +140,7 @@ const NavActions = () => {
                     )}
                 </div>
             </div>
-            <form className={isSearchOpen ? "form--1 open" : "form--1 closed"}>
-                <input
-                    type="text"
-                    placeholder="Search entiere store here..."
-                    className="search-input"
-                />
-                <input type="submit" className="submit-input" value="" />
-                <BiSearch />
-            </form>
+            <NavSearch isVisible={isSearchOpen} />
         </>
     );
 };
