@@ -2,6 +2,7 @@ import { gql, useQuery } from "@apollo/client";
 import React, { useState, useEffect, Suspense } from "react";
 import { useParams } from "react-router-dom";
 import Skeleton from "../layout/Skeleton";
+import Breadcrumbs from "../common/Breadcrumbs";
 
 const SinglePostContent = React.lazy(
     () => import("../common/SinglePostContent")
@@ -54,18 +55,21 @@ const SinglePost = () => {
     }, [loading, data]);
 
     return (
-        <Suspense fallback={<Skeleton type="page" />}>
-            <div className="container single-post">
-                <SinglePostContent
-                    title={postData?.title}
-                    excerpt={postData?.excerpt}
-                    sourceUrl={postData?.featuredImage?.node?.sourceUrl}
-                    altText={postData?.featuredImage?.node?.altText}
-                    content={postData?.content}
-                />
-            </div>
-            <LatestBlogPostsSection />
-        </Suspense>
+        <>
+            <Breadcrumbs />
+            <Suspense fallback={<Skeleton type="page" />}>
+                <div className="container single-post">
+                    <SinglePostContent
+                        title={postData?.title}
+                        excerpt={postData?.excerpt}
+                        sourceUrl={postData?.featuredImage?.node?.sourceUrl}
+                        altText={postData?.featuredImage?.node?.altText}
+                        content={postData?.content}
+                    />
+                </div>
+                <LatestBlogPostsSection />
+            </Suspense>
+        </>
     );
 };
 

@@ -33,7 +33,7 @@ const ProductInCol = (props: Props) => {
                         <span>check availability</span>
                     </div>
                 )}
-                <Link to={`/product/${props.slug}`}>
+                <Link to={`/products/${props.slug}`}>
                     <div
                         className="product-image"
                         style={{
@@ -49,7 +49,7 @@ const ProductInCol = (props: Props) => {
                     </div>
                     <span>Reviews ({props.fields?.productRating})</span>
                 </div>
-                <Link to={`/product/${props.slug}`}>
+                <Link to={`/products/${props.slug}`}>
                     <h4>{props.title}</h4>
                 </Link>
                 <div className="old-price">$1{props.fields?.productPrice}</div>

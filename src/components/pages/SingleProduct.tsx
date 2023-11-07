@@ -2,6 +2,7 @@ import React, { useState, useEffect, Suspense } from "react";
 import { useParams } from "react-router-dom";
 import { gql, useQuery } from "@apollo/client";
 import Skeleton from "../layout/Skeleton";
+import Breadcrumbs from "../common/Breadcrumbs";
 
 const SingleProductHero = React.lazy(
     () => import("../products/SingleProductHero")
@@ -88,6 +89,7 @@ const SingleProduct: React.FC = () => {
 
     return (
         <>
+            <Breadcrumbs />
             <Suspense fallback={<Skeleton type="page" />}>
                 <SingleProductHero
                     title={productData?.title}

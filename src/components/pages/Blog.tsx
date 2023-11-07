@@ -2,6 +2,7 @@ import { gql, useQuery } from "@apollo/client";
 import React, { Suspense, useEffect, useState } from "react";
 import Skeleton from "../layout/Skeleton";
 import Pagination from "../common/Pagination";
+import Breadcrumbs from "../common/Breadcrumbs";
 
 const BlogHeroSection = React.lazy(() => import("../blog/BlogHeroSection"));
 const BlogPosts = React.lazy(() => import("../blog/BlogPosts"));
@@ -84,29 +85,32 @@ const Blog = () => {
     }, [data]);
 
     return (
-        <div className="container blog">
-            <Suspense fallback={<Skeleton type="blog" />}>
-                {blogData && (
-                    <BlogHeroSection
-                        title={blogData.title}
-                        excerpt={blogData.content}
-                        sourceUrl={blogData.featuredImage.node.sourceUrl}
-                        altText={blogData.featuredImage.node.altText}
-                    />
-                )}
-                {posts.length > 0 && (
-                    <>
-                        <BlogPosts posts={currentPosts} />
-                        <Pagination
-                            postsPerPage={postsPerPage}
-                            totalPosts={posts.length}
-                            paginate={setCurrentPage}
-                            currentPage={currentPage}
+        <>
+            <Breadcrumbs />
+            <div className="container blog">
+                <Suspense fallback={<Skeleton type="blog" />}>
+                    {blogData && (
+                        <BlogHeroSection
+                            title={blogData.title}
+                            excerpt={blogData.content}
+                            sourceUrl={blogData.featuredImage.node.sourceUrl}
+                            altText={blogData.featuredImage.node.altText}
                         />
-                    </>
-                )}
-            </Suspense>
-        </div>
+                    )}
+                    {posts.length > 0 && (
+                        <>
+                            <BlogPosts posts={currentPosts} />
+                            <Pagination
+                                postsPerPage={postsPerPage}
+                                totalPosts={posts.length}
+                                paginate={setCurrentPage}
+                                currentPage={currentPage}
+                            />
+                        </>
+                    )}
+                </Suspense>
+            </div>
+        </>
     );
 };
 

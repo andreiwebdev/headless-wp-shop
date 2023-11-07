@@ -1,0 +1,30 @@
+.breadcrumb-ctn {
+    background-color: $col-light-2;
+    margin-bottom: 30px;
+    border-bottom: 1px solid $col-gray;
+    .breadcrumb {
+        padding: 20px 0px;
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        list-style: none;
+        text-transform: capitalize;
+        li {
+            margin-right: 10px;
+            font-size: 12px;
+            a {
+                text-decoration: none;
+                color: $col-blue;
+                &:hover {
+                    text-decoration: underline;
+                }
+            }
+        }
+    }
+}
+
+@media screen and (min-width: $bp-xl) {
+    .breadcrumb-ctn {
+        margin-bottom: 60px;
+    }
+}
