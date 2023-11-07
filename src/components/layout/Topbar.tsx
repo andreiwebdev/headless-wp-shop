@@ -5,6 +5,7 @@ import { FaAngleDown } from "react-icons/fa";
 import { AiFillFacebook, AiFillInstagram } from "react-icons/ai";
 import { BiTime } from "react-icons/bi";
 import { LuMapPin } from "react-icons/lu";
+import { Link } from "react-router-dom";
 
 const Topbar = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -77,7 +78,7 @@ const Topbar = () => {
                             Visit our showroom in 1234 Street Adress City
                             Address, 1234
                         </span>
-                        <a href="#">Contact Us</a>
+                        <Link to="contact-us">Contact Us</Link>
                     </div>
                     <div className="col-12 col-md-4 col-lg-3 call-us d-none d-md-flex justify-content-md-end align-items-md-center">
                         <p>Call Us: (00) 1234 5678</p>

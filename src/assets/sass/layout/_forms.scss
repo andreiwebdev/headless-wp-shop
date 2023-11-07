@@ -47,3 +47,37 @@
         }
     }
 }
+
+.contact-form {
+    display: flex;
+    flex-direction: column;
+    max-width: 600px;
+    margin: 0 auto;
+    input,
+    textarea {
+        background-color: $col-light;
+        border: 2px solid $col-blue;
+        border-radius: 6px;
+        padding: 14px;
+        width: 100%;
+        margin-bottom: 20px;
+        &::placeholder {
+            color: $col-dark;
+        }
+    }
+    button {
+        background-color: $col-blue;
+        border: 2px solid $col-blue;
+        color: $col-light;
+        cursor: pointer;
+        padding: 10px 60px;
+        text-align: center;
+        font-size: 18px;
+        border-radius: 6px;
+    }
+    .names {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+}
