@@ -51,7 +51,7 @@ const Products = () => {
     const { loading, data } = useQuery(GET_PRODUCTS_DATA);
     const [products, setProducts] = useState([]);
     const [brands, setBrands] = useState<any>([]);
-    const [cardView, setCardView] = useState(false);
+    const [cardView, setCardView] = useState(true);
 
     useEffect(() => {
         if (!loading && data) {
