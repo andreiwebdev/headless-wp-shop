@@ -272,8 +272,12 @@
                         }
                     }
                 }
+                .nav-search-ctn {
+                    margin-top: 10px;
+                }
                 .form--1 {
                     position: absolute;
+                    top: 0px;
                     left: 0px;
                     width: 80%;
                     transform: translateX(-200%);
