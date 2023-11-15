@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 
 type Props = {
     bannerURL: string;
@@ -15,7 +15,7 @@ const BannerInCol = (props: Props) => {
             }}
         >
             <h3>{props.title}</h3>
-            <Link to={props.uri}>Se All Products</Link>
+            {/* <Link to={props.uri}>Se All Products</Link> */}
         </div>
     );
 };

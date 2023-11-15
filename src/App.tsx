@@ -3,6 +3,7 @@ import Navbar from "./components/layout/Navbar";
 import Blog from "./components/pages/Blog";
 import Contact from "./components/pages/Contact";
 import Homepage from "./components/pages/Homepage";
+import Products from "./components/pages/Products";
 import SinglePost from "./components/pages/SinglePost";
 import SingleProduct from "./components/pages/SingleProduct";
 import client from "./lib/apollo";
@@ -15,6 +16,7 @@ function App() {
             <Navbar />
             <Routes>
                 <Route path="/" element={<Homepage />} />
+                <Route path="/products/" element={<Products />} />
                 <Route path="/products/:slug" element={<SingleProduct />} />
                 <Route path="/blog/" element={<Blog />} />
                 <Route path="/blog/:slug" element={<SinglePost />} />

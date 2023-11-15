@@ -1,6 +1,7 @@
 import React, { useState, useEffect, Suspense } from "react";
 import { gql, useQuery } from "@apollo/client";
 import Skeleton from "../layout/Skeleton";
+import { Link } from "react-router-dom";
 
 const NavItem = React.lazy(() => import("./NavItem"));
 
@@ -65,9 +66,9 @@ const NavLinks = () => {
                     <a href="#">Sign In</a>
                 </li>
             </ul>
-            <a href="#" className="btn btn--1">
+            <Link to="/products" className="btn btn--1">
                 Our Deals
-            </a>
+            </Link>
         </div>
     );
 };

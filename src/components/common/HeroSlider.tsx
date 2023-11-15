@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import "swiper/css";
 import { Swiper, SwiperSlide } from "swiper/react";
 
@@ -27,9 +28,9 @@ const HeroSlider = () => {
                         <div className="overlay">
                             <div className="content">
                                 <h1>Discover our products</h1>
-                                <a href="#" className="btn btn--2">
+                                <Link to="/products" className="btn btn--2">
                                     Shop Now
-                                </a>
+                                </Link>
                             </div>
                         </div>
                     </SwiperSlide>

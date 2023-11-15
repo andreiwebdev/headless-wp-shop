@@ -25,7 +25,9 @@
 @import "./components/faqs";
 @import "./components/pagination";
 @import "./components/breadcrumbs";
+@import "./components/loading-spinner";
 
 // pages
 @import "./pages/single-product.scss";
 @import "./pages/single-post.scss";
+@import "./pages/products.scss";

@@ -7,6 +7,7 @@ const ProductsSliderSection = () => {
             <HeadingWithLink
                 heading="New Products"
                 linkText="See All New Products"
+                link="/products"
             />
             <ProductsSlider />
         </div>
