@@ -5,7 +5,11 @@ import NavSearch from "./NavSearch";
 import { AiOutlineClose } from "react-icons/ai";
 import { BiSearch } from "react-icons/bi";
 
-const NavSearchIcons = () => {
+type Props = {
+    hideNav: () => void;
+};
+
+const NavSearchIcons = (props: Props) => {
     const modalRef = useRef<HTMLDivElement>(null);
     const [isSearchOpen, setIsSearchOpen] = useState(false);
 
@@ -38,6 +42,7 @@ const NavSearchIcons = () => {
                 />
             )}
             <NavSearch
+                hideNav={props.hideNav}
                 setIsVisible={setIsSearchOpen}
                 isSearchOpen={isSearchOpen}
                 isVisible={isSearchOpen}

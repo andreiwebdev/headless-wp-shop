@@ -4,6 +4,7 @@ import { BiSearch } from "react-icons/bi";
 import { Link } from "react-router-dom";
 
 type Props = {
+    hideNav: () => void;
     setIsVisible: Function;
     isVisible: boolean;
     isSearchOpen: boolean;
@@ -56,6 +57,7 @@ const NavSearch = (props: Props) => {
     const redirectHandler = () => {
         props.setIsVisible(false);
         setSearchTerm("");
+        props.hideNav();
     };
 
     useEffect(() => {
@@ -95,7 +97,7 @@ const NavSearch = (props: Props) => {
                                 onClick={redirectHandler}
                             >
                                 <div className="row">
-                                    <div className="col-2">
+                                    <div className="col-2 col-md-2">
                                         <div
                                             style={{
                                                 backgroundImage: `url(${product?.singleProduct?.productImages[0]?.image?.sourceUrl})`,
@@ -103,10 +105,10 @@ const NavSearch = (props: Props) => {
                                             className="product-image"
                                         ></div>
                                     </div>
-                                    <div className="col-8">
+                                    <div className="col-6 col-md-8">
                                         <h5>{product.title}</h5>
                                     </div>
-                                    <div className="col-2">
+                                    <div className="col-4 col-md-2">
                                         <div className="price">
                                             $
                                             {

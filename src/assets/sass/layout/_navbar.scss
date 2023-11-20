@@ -391,3 +391,26 @@
         }
     }
 }
+
+@media screen and (max-width: $bp-xl) {
+    .navbar {
+        .nav-items {
+            .nav-actions {
+                width: 100%;
+                .nav-search-ctn {
+                    margin-top: 10px;
+                    width: 100%;
+                    svg {
+                        display: none;
+                    }
+                    .form--1 {
+                        svg {
+                            display: block;
+                            top: 13px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

@@ -28,7 +28,7 @@ const NavCart = () => {
     }, []);
 
     return (
-        <div ref={modalRef} className="cart">
+        <div ref={modalRef} className="cart d-none d-xl-block">
             <div className="notification">2</div>
             <AiOutlineShoppingCart onClick={() => setIsCartOpen(!isCartOpen)} />
             {isCartOpen && (

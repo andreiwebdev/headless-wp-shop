@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 
 type Props = {
+    onClick: any;
     id: string;
     uri: string;
     label: string;
@@ -8,7 +9,7 @@ type Props = {
 
 const NavItem = (props: Props) => {
     return (
-        <li>
+        <li onClick={props.onClick}>
             <Link to={props.uri}>{props.label}</Link>
         </li>
     );

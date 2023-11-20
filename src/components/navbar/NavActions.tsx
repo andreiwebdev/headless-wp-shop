@@ -2,11 +2,15 @@ import NavCart from "./NavCart";
 import NavProfile from "./NavProfile";
 import NavSearchIcons from "./NavSearchIcons";
 
-const NavActions = () => {
+type Props = {
+    hideNav: () => void;
+};
+
+const NavActions = (props: Props) => {
     return (
         <>
-            <div className="nav-actions d-none d-xl-flex">
-                <NavSearchIcons />
+            <div className="nav-actions d-flex">
+                <NavSearchIcons hideNav={props.hideNav} />
                 <NavCart />
                 <NavProfile />
             </div>

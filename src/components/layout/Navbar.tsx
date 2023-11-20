@@ -11,6 +11,7 @@ import Logo from "../common/Logo";
 
 const Navbar = () => {
     const [isNavOpen, setIsNavOpen] = useState(false);
+    const hide = () => setIsNavOpen(false);
 
     return (
         <>
@@ -24,8 +25,8 @@ const Navbar = () => {
                         }
                     >
                         <div className="container">
-                            <NavLinks />
-                            <NavActions />
+                            <NavLinks hideNav={hide} />
+                            <NavActions hideNav={hide} />
                         </div>
                     </div>
                     <FiMenu
