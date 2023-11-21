@@ -14,6 +14,8 @@ const ProductFeaturesSection = React.lazy(
 );
 
 type Product = {
+    id: string;
+    slug: string;
     title: string;
     content: string;
 };
@@ -38,8 +40,10 @@ const SingleProduct: React.FC = () => {
             productBy(
                 slug: "${slug}"
             ) {
+                id
                 content
                 title
+                slug
                 singleProduct {
                     bannerImage {
                         sourceUrl
@@ -92,6 +96,8 @@ const SingleProduct: React.FC = () => {
             <Breadcrumbs />
             <Suspense fallback={<Skeleton type="page" />}>
                 <SingleProductHero
+                    id={productData?.id}
+                    slug={productData?.slug}
                     title={productData?.title}
                     content={productData?.title}
                     price={productFields?.productPrice}

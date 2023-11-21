@@ -64,6 +64,7 @@ const ProductsSlider = () => {
                     }
                     slug
                     title
+                    id
                 }
             }
         }
@@ -77,6 +78,7 @@ const ProductsSlider = () => {
                 <SwiperSlide key={product.id || key}>
                     <Suspense fallback={<Skeleton type="card" />}>
                         <ProductInCol
+                            id={product.id}
                             title={product.title}
                             slug={product.slug}
                             fields={product.singleProduct}

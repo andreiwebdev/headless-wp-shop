@@ -296,6 +296,12 @@
         .cart {
             position: relative;
             .cart-items-ctn {
+                &.no-items {
+                    h6,
+                    .cart-header {
+                        margin-bottom: 0px !important;
+                    }
+                }
                 position: absolute;
                 top: 100%;
                 right: -100%;
@@ -306,7 +312,7 @@
                 color: #020202;
                 padding: 23px 0px;
                 width: 100%;
-                min-width: 400px;
+                min-width: max-content;
                 height: fit-content;
                 text-align: center;
                 z-index: 100;
@@ -339,6 +345,7 @@
                     .cart-item {
                         display: flex;
                         align-items: center;
+                        justify-content: space-between;
                         padding: 18px 24px;
                         border-bottom: 1px solid $col-gray;
                         &:first-child {

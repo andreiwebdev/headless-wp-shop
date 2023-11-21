@@ -2,12 +2,16 @@ import "swiper/css";
 import "swiper/css/pagination";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination } from "swiper/modules";
+import { useDispatch } from "react-redux";
+import { cartActions } from "../../store/slices/cart.slice";
 
 type Props = {
-    title: string | undefined;
-    content: string | undefined;
-    price: string | undefined;
-    productImages: [] | undefined;
+    id: any;
+    slug: any;
+    title: any;
+    content: any;
+    price: any;
+    productImages: any;
 };
 
 const SingleProductHero = (props: Props) => {
@@ -18,6 +22,20 @@ const SingleProductHero = (props: Props) => {
             dynamicBullets: true,
         },
     };
+
+    const dispatch = useDispatch();
+    const addItemToCart = () => {
+        const item = {
+            id: props.id,
+            title: props.title,
+            slug: props.slug,
+            price: props.price,
+            image: props.productImages[0]?.image?.sourceUrl,
+            quantity: 1,
+        };
+        dispatch(cartActions.addItemToCart(item));
+    };
+
     return (
         <div className="single-product-hero container">
             <div className="row">
@@ -26,7 +44,9 @@ const SingleProductHero = (props: Props) => {
                         <h2>{props.title}</h2>
                         <p>{props.content}</p>
                         <h3 className="mb-4">${props.price}</h3>
-                        <div className="btn btn--2">Add To Cart</div>
+                        <div onClick={addItemToCart} className="btn btn--2">
+                            Add To Cart
+                        </div>
                     </div>
                 </div>
                 <div className="col-md-6">
@@ -36,16 +56,18 @@ const SingleProductHero = (props: Props) => {
                             {...sliderOptions}
                             className="single-product-slider"
                         >
-                            {props.productImages?.map((imageURL: any, key) => (
-                                <SwiperSlide key={key}>
-                                    <div
-                                        className="thumbnail"
-                                        style={{
-                                            backgroundImage: `url(${imageURL?.image?.sourceUrl})`,
-                                        }}
-                                    ></div>
-                                </SwiperSlide>
-                            ))}
+                            {props.productImages?.map(
+                                (imageURL: any, key: number) => (
+                                    <SwiperSlide key={key}>
+                                        <div
+                                            className="thumbnail"
+                                            style={{
+                                                backgroundImage: `url(${imageURL?.image?.sourceUrl})`,
+                                            }}
+                                        ></div>
+                                    </SwiperSlide>
+                                )
+                            )}
                         </Swiper>
                     </div>
                 </div>

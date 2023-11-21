@@ -132,6 +132,7 @@ const Products = () => {
                                         className="col-sm-6 col-lg-4 col-xl-3 mb-3"
                                     >
                                         <ProductInCol
+                                            id={product.id}
                                             slug={product.slug}
                                             title={product.title}
                                             fields={product.singleProduct}
@@ -143,6 +144,7 @@ const Products = () => {
                                         className="col-12 mb-3"
                                     >
                                         <ProductItemList
+                                            id={product.id}
                                             slug={product.slug}
                                             title={product.title}
                                             fields={product.singleProduct}
